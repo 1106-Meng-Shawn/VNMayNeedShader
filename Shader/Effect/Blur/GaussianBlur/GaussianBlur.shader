@@ -3,7 +3,7 @@ Shader "Effect/GaussianBlur"
     Properties
     {
         _MainTex ("Main Texture", 2D) = "white" {}
-        _Size ("Blur Size", Range(0, 200)) = 1.0
+        _Size ("Blur Size", Range(0, 200)) = 100
         _Offset ("Offset", Float) = 0.0
         _Direction ("Blur Direction", Vector) = (1,0,0,0) // (1,0)=??, (0,1)=??
     }

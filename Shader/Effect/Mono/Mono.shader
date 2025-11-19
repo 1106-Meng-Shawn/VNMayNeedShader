@@ -3,7 +3,7 @@ Shader "Effect/Mono"
     Properties
     {
         _MainTex ("Main Texture", 2D) = "white" {}
-        _MonoAmount ("Mono Amount", Range(0,1)) = 0.0     // ? ??
+        _MonoAmount ("Mono Amount", Range(0,1)) = 0.5    // ? ??
         _ColorMul ("Color Multiplier", Color) = (1,1,1,1)
         _ColorAdd ("Color Offset", Vector) = (0,0,0,0)
     }

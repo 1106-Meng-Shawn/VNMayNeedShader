@@ -3,7 +3,7 @@ Shader "Effect/Sharpen"
     Properties
     {
         _MainTex ("Main Texture", 2D) = "white" {}
-        _Progress ("Sharpen Progress", Range(0.0, 1.0)) = 1.0
+        _Progress ("Sharpen Progress", Range(0.0, 1.0)) = 0.5
         _Size ("Blur Size", Float) = 1.0
         _Strength ("Sharpen Strength", Float) = 1.0
         [ToggleUI]_UseExternal ("Use External Progress", Float) = 0

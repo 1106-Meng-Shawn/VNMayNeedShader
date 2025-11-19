@@ -3,7 +3,7 @@ Shader "Effect/MotionBlur"
     Properties
     {
         _MainTex ("Main Texture", 2D) = "white" {}
-        _BlurAmount ("Blur Amount", Range(0,1)) = 0.0
+        _BlurAmount ("Blur Amount", Range(0,1)) = 0.5
         _Size ("Size", Float) = 1.0
         _Theta ("Theta (Degrees)", Range(0,360)) = 0.0
         _Samples ("Samples", Range(1,16)) = 8

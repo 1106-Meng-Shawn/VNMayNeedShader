@@ -3,7 +3,7 @@ Shader "Effect/Glow"
     Properties
     {
         _MainTex ("Main Texture", 2D) = "white" {}
-        _T ("Time", Range(0,1)) = 0.0
+        _T ("Time", Range(0,1)) = 0.5
         _Size ("Size", Float) = 1.0
         _Strength ("Strength", Float) = 1.0
         _GlowCenter ("Glow Center", Vector) = (0.5,0.5,0,0)

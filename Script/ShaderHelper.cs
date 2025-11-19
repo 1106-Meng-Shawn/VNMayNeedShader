@@ -24,9 +24,9 @@ public static class ShaderConstants
     public const string Blur = "Blur";
     public const string LerpSlicesClock = "LerpSlicesClock";
     public const string Water = "Water";
-
-
+    public const string Barrel = "Barrel";
 }
+
 
 public static class ShaderProperty
 {
@@ -90,7 +90,7 @@ public static class ShaderPropertyValue
 }
 
 
-#region  shader Path
+#region  Shader Path
 
 
 public static class CameraShader
@@ -119,13 +119,15 @@ public static class TransitionShader
 
 public static class EffectShader
 {
-    public static readonly string BarrelPath = $"{ShaderConstants.EffectPath}/Barrel/Barrel/Barrel";
-    public static readonly string BarrelHyperPath = $"{ShaderConstants.EffectPath}/Barrel/Barrel/BarrelHyper";
+    public static readonly string BarrelPath = $"{ShaderConstants.EffectPath}/{ShaderConstants.Barrel}/Barrel/Barrel";
+    public static readonly string BarrelHyperPath = $"{ShaderConstants.EffectPath}/{ShaderConstants.Barrel}/BarrelHyper/BarrelHyper";
 
     public static readonly string GaussianBlurPath = $"{ShaderConstants.EffectPath}/{ShaderConstants.Blur}/GaussianBlur/GaussianBlur";
     public static readonly string LensBlurPath = $"{ShaderConstants.EffectPath}/{ShaderConstants.Blur}/LensBlur/LensBlur";
     public static readonly string MotionBlurPath = $"{ShaderConstants.EffectPath}/{ShaderConstants.Blur}/MotionBlur/MotionBlur";
     public static readonly string RadialBlurPath = $"{ShaderConstants.EffectPath}/{ShaderConstants.Blur}/RadialBlur/RadialBlur";
+    public static readonly string RotationBlurPath = $"{ShaderConstants.EffectPath}/{ShaderConstants.Blur}/RotationBlur/RotationBlur";
+
 
     public static readonly string BrokenTVPath = $"{ShaderConstants.EffectPath}/BrokenTV/BrokenTV";
 
@@ -137,10 +139,10 @@ public static class EffectShader
 
     public static readonly string RandRollPath = $"{ShaderConstants.EffectPath}/RandRoll/RandRoll";
     public static readonly string RippleMovePath = $"{ShaderConstants.EffectPath}/RippleMove/RippleMove";
-    public static readonly string RotationBlurPath = $"{ShaderConstants.EffectPath}/RotationBlur/RotationBlur";
 
     public static readonly string ScreenFlickeringPath = $"{ShaderConstants.EffectPath}/ScreenFlickering/ScreenFlickering";
     public static readonly string ShakePath = $"{ShaderConstants.EffectPath}/Shake/Shake";
+
     public static readonly string AnimeSpeedLinePath = $"{ShaderConstants.EffectPath}/SpeedLine/AnimeSpeedLine/AnimeSpeedLine";
     public static readonly string SpeedLine1Path = $"{ShaderConstants.EffectPath}/SpeedLine/SpeedLine1/SpeedLine1";
     public static readonly string SpeedLine2Path = $"{ShaderConstants.EffectPath}/SpeedLine/SpeedLine2/SpeedLine2";
@@ -219,7 +221,7 @@ public static class ShaderHelper
         if (mat.HasProperty(ShaderProperty.SubColor))
             mat.SetColor(ShaderProperty.SubColor, req.TargetImage.color);
 
-        CustomParams(mat, req.CustomParams);
+        ApplyCustomParams(mat, req.CustomParams);
         return mat;
     }
     public static void TransitionAnimation(ShaderAnimationRequest req, System.Action onComplete = null)
@@ -249,6 +251,80 @@ public static class ShaderHelper
         return transparentTexture;
     }
 
+    public static void ApplyEffectShader(Image TargetImage, string shaderPath, Dictionary<string, object> customParams = null)
+    {
+
+        Shader shader = Resources.Load<Shader>(shaderPath);
+        if (shader == null)
+        {
+            Debug.LogError("Shader not found at path: " + shaderPath);
+            return;
+        }
+
+        Material mat = new Material(shader);
+        TargetImage.material = mat;
+
+        if (mat.HasProperty(ShaderProperty.MainTex)) mat.SetTexture(ShaderProperty.MainTex, TargetImage.sprite.texture);
+        if (mat.HasProperty(ShaderProperty.MainColor)) mat.SetColor(ShaderProperty.MainColor, TargetImage.color);
+        ApplyCustomParams(mat, customParams);
+
+    }
+
+
+
+    public static void ApplyCustomParams(Material mat, Dictionary<string, object> customParams)
+    {
+        if (mat == null || customParams == null)
+            return;
+
+        foreach (var kv in customParams)
+        {
+            string prop = kv.Key;
+            object val = kv.Value;
+
+            if (!mat.HasProperty(prop))
+            {
+                Debug.LogWarning("Material has no property: " + prop);
+                continue;
+            }
+
+            switch (val)
+            {
+                case float f:
+                    mat.SetFloat(prop, f);
+                    break;
+
+                case int i:
+                    mat.SetFloat(prop, i);
+                    break;
+
+                case Vector2 v2:
+                    mat.SetVector(prop, v2);
+                    break;
+
+                case Vector3 v3:
+                    mat.SetVector(prop, v3);
+                    break;
+
+                case Vector4 v4:
+                    mat.SetVector(prop, v4);
+                    break;
+
+                case Color color:
+                    mat.SetColor(prop, color);
+                    break;
+
+                case Texture tex:
+                    mat.SetTexture(prop, tex);
+                    break;
+
+                default:
+                    Debug.LogWarning("Unsupported param type for: " + prop);
+                    break;
+            }
+        }
+    }
+
 
     #endregion
 
@@ -276,32 +352,6 @@ public static class ShaderHelper
                .OnComplete(() => onComplete?.Invoke());
     }
 
-
-    private static void CustomParams(Material mat, Dictionary<string, object> customParams)
-    {
-        if (customParams == null) return;
-
-        foreach (var kv in customParams)
-        {
-            if (!mat.HasProperty(kv.Key)) continue;
-
-            switch (kv.Value)
-            {
-                case float f:
-                    mat.SetFloat(kv.Key, f);
-                    break;
-                case Color c:
-                    mat.SetColor(kv.Key, c);
-                    break;
-                case Vector4 v:
-                    mat.SetVector(kv.Key, v);
-                    break;
-                default:
-                    Debug.LogWarning($"{mat} Unsupported parameter type for {kv.Key}");
-                    break;
-            }
-        }
-    }
 
     #endregion
 
@@ -477,6 +527,11 @@ public static class ShaderHelper
     }
 
     #endregion
+
+    public static void ResetTargetImage(Image TargetImage)
+    {
+        TargetImage.material = null;
+    }
 
 
     public static void ResetEffectImage(Image EffectImage)

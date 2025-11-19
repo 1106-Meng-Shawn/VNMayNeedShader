@@ -3,7 +3,7 @@ Shader "Effect/Overglow"
     Properties
     {
         _MainTex ("Main Texture", 2D) = "white" {}
-        _GlowAmount ("Glow Amount", Range(0,1)) = 0.0
+        _GlowAmount ("Glow Amount", Range(0,1)) = 0.5
         _Zoom ("Zoom", Float) = 0.5
         _Mul ("Multiplier", Float) = 0.5
         _Center ("Glow Center", Vector) = (0.5, 0.5, 0, 0)

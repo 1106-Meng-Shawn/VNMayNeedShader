@@ -3,7 +3,7 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _T ("Time", Range(0,10)) = 0.0
+        _T ("Time", Range(0,10)) = 5
         _Roll ("Y Rolling Strength", Range(0,1)) = 0.07
         _ColorOffset ("Color Offset Strength", Range(0,0.5)) = 0.1
         _ScanStrength ("Scanline Strength", Range(0,0.5)) = 0.1

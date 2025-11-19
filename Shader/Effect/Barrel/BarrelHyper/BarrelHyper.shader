@@ -3,7 +3,7 @@ Shader "Effect/BarrelHyper"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _T ("Time", Float) = 0.0
+        _T ("Time", Float) = 0.5
         _Sigma ("Curvature", Float) = 0.2
         _Aspect ("Aspect Ratio", Float) = 1.77778
         _Scale ("Scale", Float) = 1.0

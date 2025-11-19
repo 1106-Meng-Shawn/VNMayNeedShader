@@ -3,7 +3,7 @@ Shader "Effect/Kaleido"
     Properties
     {
         _MainTex ("Main Texture", 2D) = "white" {}
-        _Blend ("Blend", Range(0,1)) = 0.0          // <—— ?????
+        _Blend ("Blend", Range(0,1)) = 0.5         // <—— ?????
         _Repeat ("Repeat", Float) = 8.0
         _Speed ("Rotation Speed", Float) = 1.0
     }

@@ -3,7 +3,7 @@
     Properties
     {
         _MainTex ("Main Texture", 2D) = "white" {}
-        _Progress ("Progress", Range(0.0, 1.0)) = 0.0
+        _Progress ("Progress", Range(0.0, 1.0)) = 0.5
         _Freq ("Frequency", Float) = 10.0
         _MaxOffset ("Max Offset", Float) = 0.1
         _Smooth ("Smooth Transition", Float) = 0.0 // 0 = false (每帧跳), 1 = true (平滑)

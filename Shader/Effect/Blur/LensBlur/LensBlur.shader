@@ -3,7 +3,7 @@ Shader "Effect/LensBlur"
     Properties
     {
         _MainTex ("Main Texture", 2D) = "white" {}
-        _BlurAmount ("Blur Amount", Range(0,1)) = 0.0    // ? ??
+        _BlurAmount ("Blur Amount", Range(0,1)) = 0.5   // ? ??
         _Size ("Blur Size", Float) = 1.0
         _Offset ("Brightness Offset", Float) = 0.0
     }

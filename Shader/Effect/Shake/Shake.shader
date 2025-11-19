@@ -3,7 +3,7 @@ Shader "Effect/Shake"
     Properties
     {
         _MainTex ("Main Texture", 2D) = "white" {}
-        _Progress ("Shake Strength", Range(0,1)) = 0.0
+        _Progress ("Shake Strength", Range(0,1)) = 0.5
         _XAmp ("X Amplitude", Float) = 0.01
         _YAmp ("Y Amplitude", Float) = 0.01
         _Freq ("Frequency", Float) = 10.0

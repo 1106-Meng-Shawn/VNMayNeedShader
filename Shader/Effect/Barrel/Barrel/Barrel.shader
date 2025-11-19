@@ -3,7 +3,7 @@ Shader "Effect/Barrel"
     Properties
     {
         _MainTex ("Main Texture", 2D) = "white" {}
-        _T ("Time", Range(0.0, 1.0)) = 0.0
+        _T ("Time", Range(0.0, 1.0)) = 0.5
         _Sigma ("Curvature", Float) = 0.2
         _Aspect ("Aspect Ratio", Float) = 1.77777778
         _Scale ("Scale", Float) = 1.0

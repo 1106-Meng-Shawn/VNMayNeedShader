@@ -5,7 +5,7 @@
         _MainTex ("Main Texture", 2D) = "white" {}
         _BaseColor ("Base Color", Color) = (0.2, 0.4, 0.8, 0.5)
         _HighlightColor ("Highlight Color", Color) = (1,1,1,0.5)
-        _T ("Time", Range(0.0,1.0)) = 0.0
+        _T ("Time", Range(0.0,1.0)) = 0.5
         _Size ("Size", Float) = 10.0
         _Aspect ("Aspect Ratio", Float) = 1.77778
         _Freq ("Frequency", Float) = 50.0
